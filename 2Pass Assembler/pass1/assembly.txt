@@ -1,0 +1,10 @@
+**      START   1000
+**      LDA     FIVE
+**      STA     ALPHA
+**      LDCH    C1
+**      STCH    BETA
+ALPHA   RESW    1
+BETA    RESB    1
+FIVE    WORD    5
+C1      BYTE    C'HELLO'
+**  END     **

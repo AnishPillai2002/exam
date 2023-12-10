@@ -1,0 +1,72 @@
+DATA SEGMENT
+    
+    MESS1 DB 10,13,"ANISH KING$"
+    MESS2 DB 10,13,"ENTER THE CHARACTER TO REPLACE: $" 
+    MESS3 DB 10,13,"ENTER THE NEW CHARACTER: $"
+    
+    LEN DB $-MESS1 
+    
+DATA ENDS
+
+ASSUME CS:CODE,DS:DATA
+
+CODE SEGMENT
+    
+START:
+    MOV AX,DATA
+    MOV DS,AX
+    MOV ES,AX
+    
+    
+    MOV DI,(MESS1+LEN-1)     ; POINTING DI TO LAST CHARACTER OF STRING
+                             ; LOADING CX FOR LOOPING
+    MOV CL,LEN
+    MOV CH,00H               ;READING CHARACTER TO REPLACE
+    
+    MOV AH,09H
+    LEA DX,MESS2
+    INT 21H
+    
+    MOV AH,01H
+    INT 21H
+    
+    MOV BL,AL
+                             ;READING NEW CHARACTER
+    MOV AH,09H
+    LEA DX,MESS3
+    INT 21H  
+    
+    MOV AH,01H
+    INT 21H
+    
+    MOV BH,AL
+    
+    MOV AL,BL
+    
+COMPARE:
+                             ;COMPARING DI WITH CHARACTER TO REPLACE
+    CMP [DI],AL
+    JE EXCHANGE
+    JMP CONTINUE
+    
+EXCHANGE:
+    
+    MOV BYTE PTR[DI],BH       ; EXCHANGING 
+    
+CONTINUE:
+
+    DEC DI
+    LOOP COMPARE              ; LOOPING TILL CX=0
+    
+    MOV AH,09H
+    LEA DX,MESS1
+    INT 21H
+    
+    
+    MOV AH,4CH
+    INT 21H
+    
+    
+
+CODE ENDS
+END START
