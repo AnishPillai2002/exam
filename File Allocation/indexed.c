@@ -73,71 +73,7 @@ void ReadIndexBlock(){
     }
 }
 
-//Function to allocate blocks
-int  allocateBlock(){
 
-    int flag=0;
-
-    //Ask the user to input block numbers to allocate the file
-    printf("Enter the %d Blocks: ", no_of_blocks);
-    for (int i = 0; i < no_of_blocks; i++){
-        scanf("%d", &indexBlockArray[i]);
-        
-        //// Check if the selected blocks are free
-        if (fileBlock[indexBlockArray[i]]==0){
-            flag++;
-        }          
-    }
-
-
-
-    //If all selected blocks (flag == n) are free, 
-    //marks them as allocated by setting corresponding elements in the files[] array to 1.
-    if(flag==no_of_blocks){
-
-        for (int i = 0; i <no_of_blocks; i++){
-            fileBlock[indexBlockArray[i]] = 1;
-        }
-        
-        array[k].num_blocks = no_of_blocks;
-        array[k].indexBlock = indexBlock;
-        for (int i = 0; i < no_of_blocks; i++){
-            array[k].blocks[i] = indexBlockArray[i];
-        }
-        k++;
-
-        printf("File is allocated successfully\n");
-
-    }
-    return 0;
-}
-
-void printDetails(int index){
-
-    int found=0;
-    int foundIndex;
-    for (int i = 0; i < k; i++){     
-        //if index found in the array
-        if (array[i].indexBlock == index){
-            foundIndex=i;
-            found=1;
-            break;
-              
-        }    
-    }
-
-    if (found==0){
-        printf("File not found\n");
-    }
-    else{
-        printf("File found\n");
-        for (int j = 0; j < array[foundIndex].num_blocks; j++){         
-                printf("Block %d --> %d\n",index, array[foundIndex].blocks[j]);
-        } 
-    }
-    
-    
-}
 
 int main(){
 
